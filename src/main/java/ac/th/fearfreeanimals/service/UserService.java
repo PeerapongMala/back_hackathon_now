@@ -35,5 +35,12 @@ public class UserService {
 
         // Save patient to the database
         return userRepository.save(patient);
+    }public User createGeneralUser(String username, String password) {
+        Role generalRole = roleRepository.findByName("GENERAL")
+                .orElseThrow(() -> new RuntimeException("Role GENERAL not found"));
+    
+        User generalUser = new User(username, password, generalRole);
+        return userRepository.save(generalUser);
     }
+    
 }
