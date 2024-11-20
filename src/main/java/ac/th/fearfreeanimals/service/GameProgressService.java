@@ -4,8 +4,6 @@ import ac.th.fearfreeanimals.entity.GameProgress;
 import ac.th.fearfreeanimals.entity.User;
 import ac.th.fearfreeanimals.repository.GameProgressRepository;
 import ac.th.fearfreeanimals.repository.UserRepository;
-
-import java.time.LocalDateTime;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,16 +59,7 @@ public class GameProgressService {
         return gameProgressRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("Game progress not found for user ID " + userId));
     }
-    
-//     public GameProgress updateSymptomNotes(Long userId, int level, String TEXT) {
-//     GameProgress progress = gameProgressRepository.findByUserId(userId)
-//             .orElseThrow(() -> new RuntimeException("Game progress not found for user ID " + userId));
 
-//     // เพิ่มหรืออัปเดต symptom notes
-//     progress.getSymptomNotes().put(level, TEXT);
-//     progress.setLastUpdated(LocalDateTime.now());
-//     return gameProgressRepository.save(progress);
-// }
 public GameProgress updateSymptomNotes(Long userId, String animal, int level, String text) {
     // ตรวจสอบว่าข้อมูล GameProgress มีหรือไม่
     GameProgress progress = gameProgressRepository.findByUserIdAndAnimalType(userId, animal)
@@ -92,20 +81,6 @@ public GameProgress updateSymptomNotes(Long userId, String animal, int level, St
     // บันทึกการเปลี่ยนแปลงและส่งกลับ
     return gameProgressRepository.save(progress);
 }
-
-
-
-// public GameProgress updateGameProgress(Long userId, String animalType, int level) {
-//     // ดึงข้อมูลเกมความคืบหน้าตาม userId
-//     GameProgress progress = gameProgressRepository.findByUserIdAndAnimalType(userId, animalType)
-//             .orElseThrow(() -> new RuntimeException("Game progress not found"));
-
-//     // อัปเดตเลเวล
-//     progress.setCurrentLevel(level);
-
-//     // บันทึกข้อมูลที่อัปเดต
-//     return gameProgressRepository.save(progress);
-// }
 
 public GameProgress updateGameProgressForGeneralUser(Long userId, String animalType, int level) {
     GameProgress progress = gameProgressRepository.findByUserIdAndAnimalType(userId, animalType)
@@ -130,17 +105,6 @@ public GameProgress getOrCreateGameProgress(Long userId, String animalType) {
                 return gameProgressRepository.save(progress);
             });
 }
-
-// อัปเดตความคืบหน้า
-// public GameProgress updateGameProgress(Long userId, String animalType, int level) {
-//     GameProgress progress = getOrCreateGameProgress(userId, animalType);
-
-//     if (level > progress.getCurrentLevel()) {
-//         progress.setCurrentLevel(level);
-//     }
-
-//     return gameProgressRepository.save(progress);
-// }
 
 // ปลดล็อกเลเวลถัดไป
 public GameProgress unlockNextLevel(Long userId) {
@@ -179,28 +143,6 @@ public GameProgress createOrUpdateProgress(Long userId, String animalType, int l
 
     return gameProgressRepository.save(progress);
 }
-
-// public GameProgress getGameProgress(Long userId, String animal) {
-//     return gameProgressRepository.findByUserIdAndAnimalType(userId, animal)
-//             .orElseGet(() -> {
-//                 // ตรวจสอบว่าผู้ใช้มีอยู่ในระบบหรือไม่
-//                 User user = userRepository.findById(userId)
-//                         .orElseThrow(() -> new RuntimeException("User not found with ID " + userId));
-
-//                 // สร้าง GameProgress ใหม่
-//                 GameProgress newProgress = new GameProgress();
-//                 newProgress.setUser(user);
-//                 newProgress.setAnimalType(animal);
-//                 newProgress.setCurrentLevel(1); // ค่าเริ่มต้น
-//                 newProgress.setSymptomNotes(new HashMap<>()); // เริ่มต้นเป็น Map ว่าง
-
-//                 // Logging
-//                 System.out.println("Creating new GameProgress for user ID " + userId + " and animal " + animal);
-
-//                 // บันทึกข้อมูลใหม่ลงในฐานข้อมูล
-//                 return gameProgressRepository.save(newProgress);
-//             });
-// }
 
 public GameProgress getGameProgress(Long userId, String animal) {
     return gameProgressRepository.findByUserIdAndAnimalType(userId, animal)

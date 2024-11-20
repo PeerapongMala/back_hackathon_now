@@ -67,7 +67,6 @@ public class CoinsService {
         // ค้นหาผู้ใช้
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with id " + userId));
-
         // ค้นหาเหรียญของผู้ใช้
         Coins coins = coinsRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("Coins not found for userId " + userId));
@@ -76,11 +75,14 @@ public class CoinsService {
         if (coins.getBalance() < coinsToSubtract) {
             throw new RuntimeException("Not enough coins to redeem reward.");
         }
-
+        
         // ลดเหรียญ
         coins.setBalance(coins.getBalance() - coinsToSubtract);
+        
+        userRepository.save(user);
 
         // บันทึกข้อมูลเหรียญที่อัปเดต
         coinsRepository.save(coins);
+        
     }
 }
