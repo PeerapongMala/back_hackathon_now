@@ -44,13 +44,10 @@ public class CoinsService {
     public void deleteCoins(Long id) {
         Coins coins = getCoinsById(id); // ฟังก์ชันที่ดึงเหรียญตาม id
         coinsRepository.delete(coins);
-    }
+    }    
 
-    
-
-
-    // ฟังก์ชันเพิ่มเหรียญให้กับผู้ใช้
-    public void addCoins(Long userId, int coinsToAdd) {
+     // ฟังก์ชันเพิ่มเหรียญให้กับผู้ใช้
+     public Coins addCoins(Long userId, int coinsToAdd) {
         // ค้นหาเหรียญของผู้ใช้
         Coins coins = coinsRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("Coins not found for userId " + userId));
@@ -59,30 +56,23 @@ public class CoinsService {
         coins.setBalance(coins.getBalance() + coinsToAdd);
 
         // บันทึกข้อมูลที่อัปเดต
-        coinsRepository.save(coins);
-    }
-
+        return coinsRepository.save(coins);
+     }
     // ลดจำนวนเหรียญของผู้ใช้
-    public void subtractCoins(Long userId, int coinsToSubtract) {
-        // ค้นหาผู้ใช้
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found with id " + userId));
+    public Coins subtractCoins(Long userId, int coinsToSubtract) {
         // ค้นหาเหรียญของผู้ใช้
         Coins coins = coinsRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("Coins not found for userId " + userId));
 
         // ตรวจสอบว่าเหรียญที่ผู้ใช้มีเพียงพอหรือไม่
         if (coins.getBalance() < coinsToSubtract) {
-            throw new RuntimeException("Not enough coins to redeem reward.");
+            throw new RuntimeException("Insufficient balance to deduct");
         }
-        
+
         // ลดเหรียญ
         coins.setBalance(coins.getBalance() - coinsToSubtract);
-        
-        userRepository.save(user);
 
         // บันทึกข้อมูลเหรียญที่อัปเดต
-        coinsRepository.save(coins);
-        
+        return coinsRepository.save(coins);
     }
 }

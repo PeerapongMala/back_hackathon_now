@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="ac.th.fearfreeanimals.service.UserServiceTest" time="0.042" tests="4" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="ac.th.fearfreeanimals.service.GameProgressServiceTest" time="0.359" tests="5" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -65,8 +65,9 @@
     <property name="java.class.version" value="65.0"/>
     <property name="LOGGED_APPLICATION_NAME" value="[fearfreeanimals] "/>
   </properties>
-  <testcase name="createPatientByDoctor_shouldCreatePatientSuccessfully" classname="ac.th.fearfreeanimals.service.UserServiceTest" time="0.006"/>
-  <testcase name="createPatientByDoctor_shouldThrowExceptionWhenDoctorNotFound" classname="ac.th.fearfreeanimals.service.UserServiceTest" time="0.004"/>
-  <testcase name="createGeneralUser_shouldCreateUserSuccessfully" classname="ac.th.fearfreeanimals.service.UserServiceTest" time="0.015"/>
-  <testcase name="createPatientByDoctor_shouldThrowExceptionWhenDoctorRoleInvalid" classname="ac.th.fearfreeanimals.service.UserServiceTest" time="0.004"/>
+  <testcase name="updateGameProgress_shouldUpdateGameProgressSuccessfully" classname="ac.th.fearfreeanimals.service.GameProgressServiceTest" time="0.138"/>
+  <testcase name="createGameProgress_shouldCreateGameProgressSuccessfully" classname="ac.th.fearfreeanimals.service.GameProgressServiceTest" time="0.072"/>
+  <testcase name="nextLevel_shouldIncreaseLevelSuccessfully" classname="ac.th.fearfreeanimals.service.GameProgressServiceTest" time="0.081"/>
+  <testcase name="unlockNextLevel_shouldUnlockNextLevelAndAddCoins" classname="ac.th.fearfreeanimals.service.GameProgressServiceTest" time="0.014"/>
+  <testcase name="updateSymptomNotes_shouldUpdateNotesSuccessfully" classname="ac.th.fearfreeanimals.service.GameProgressServiceTest" time="0.016"/>
 </testsuite>
