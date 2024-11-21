@@ -14,8 +14,8 @@ SELECT 'ADMIN' WHERE NOT EXISTS (SELECT 1 FROM roles WHERE name = 'ADMIN');
 -- Insert users with correct role_id and default is_doctor flag
 INSERT INTO users (username, password, role_id, access_code, fear_level, coins, is_doctor, created_at, updated_at)
 VALUES
-('john_doe', 'password123', (SELECT id FROM roles WHERE name = 'GENERAL'), NULL, 10, 100, FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-('jane_doe', 'password456', (SELECT id FROM roles WHERE name = 'PATIENT'), 'FFANM001', 2, 200, FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('john_doe', 'password123', (SELECT id FROM roles WHERE name = 'GENERAL'), NULL, 10, 3, FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+('jane_doe', 'password456', (SELECT id FROM roles WHERE name = 'PATIENT'), 'FFANM001', 2, 6, FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 ('doctor_smith', 'password789', (SELECT id FROM roles WHERE name = 'DOCTOR'), NULL, 0, 0, TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 ('admin', '$2a$10$hashed_admin_password', (SELECT id FROM roles WHERE name = 'ADMIN'), NULL, 0, 0, FALSE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
